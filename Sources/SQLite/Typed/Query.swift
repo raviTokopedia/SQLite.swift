@@ -1109,12 +1109,14 @@ public struct Row {
         return valueAtIndex(idx)
     }
 
-    public subscript<T : Value>(column: Expression<T>) -> T {
-        return try! get(column)
+    public subscript<T : Value>(column: Expression<T>) -> T? {
+        guard let data = try? get(column) else { return nil }
+        return data
     }
 
     public subscript<T : Value>(column: Expression<T?>) -> T? {
-        return try! get(column)
+        guard let data = try? get(column) else { return nil }
+        return data
     }
 }
 
